@@ -7,7 +7,15 @@ readme = "README.md"
 packages = [{include = "ml_homework_1"}]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "~3.12"
+jupyter = "^1.1.1"
+pandas = "^2.2.3"
+matplotlib = "^3.9.3"
+seaborn = "^0.13.2"
+ydata-profiling = "^4.12.0"
+phik = "^0.12.4"
+scikit-learn = "^1.5.2"
+fastapi = "^0.115.5"
 
 
 [build-system]
