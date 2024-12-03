@@ -9,6 +9,10 @@ from sklearn.linear_model import Lasso
 
 import re
 import pickle
+import warnings
+
+warnings.simplefilter('ignore')
+
 
 def process_torque(torque_str: str) -> (float, float):
     """Функция для обработки столбца `torque`."""
@@ -63,6 +67,8 @@ class CustomNumTransformer(BaseEstimator, TransformerMixin):
 
 
 class CustomCatTransformer(BaseEstimator, TransformerMixin):
+    """Кастомный класс для преобразования категориальных признаков."""
+
     def fit(self, X, y=None):
         return self
 
@@ -94,7 +100,7 @@ def fit_and_save_pipeline(path='pipeline.pickle') -> None:
         ('custom_transformer', CustomNumTransformer()),
         ('imputer', SimpleImputer(strategy='median')),
         ('scaler', MinMaxScaler()),
-        ('poly', PolynomialFeatures(degree=2))
+        ('poly_features', PolynomialFeatures(degree=2))
     ])
 
     cat_cols = ['name', 'fuel', 'seller_type', 'transmission', 'owner', 'seats']
@@ -111,7 +117,7 @@ def fit_and_save_pipeline(path='pipeline.pickle') -> None:
 
     lasso_pipeline = Pipeline(steps=[
         ('preprocessor', col_transformer),
-        ('classifier', Lasso(random_state=42))
+        ('regressor', Lasso(random_state=42))
     ])
 
     lasso_pipeline.fit(X_train, y_train)
