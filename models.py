@@ -111,7 +111,7 @@ def fit_and_save_pipeline(path='pipeline.pickle') -> None:
 
     lasso_pipeline = Pipeline(steps=[
         ('preprocessor', col_transformer),
-        ('classifier', Lasso())
+        ('classifier', Lasso(random_state=42))
     ])
 
     lasso_pipeline.fit(X_train, y_train)
